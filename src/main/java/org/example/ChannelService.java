@@ -15,9 +15,10 @@ public class ChannelService {
         }
 
         Channel channel = new Channel(name);
-        channels.put(name,channel);
+        channels.put(name, channel);
         return true;
     }
+
     public boolean deleteChannel(String name) {
         if (!channels.containsKey(name)) {
             return false;
@@ -25,13 +26,13 @@ public class ChannelService {
         channels.remove(name);
         return true;
     }
+
     public Optional<Channel> getChannel(String name) {
         return Optional.ofNullable(channels.get(name));
     }
 
     public boolean subscribe(String channelName, Observer user) {
-        HashSet<Observer> usersOfChannel = channels.get(channelName).getSubscribers();
-        if (channelName.isBlank() || !this.channels.containsKey(channelName) || usersOfChannel.isEmpty()){
+        if (channelName.isBlank() || !this.channels.containsKey(channelName) || user == null) {
             return false;
         }
         Channel channel = channels.get(channelName);
@@ -48,7 +49,7 @@ public class ChannelService {
 
     }
 
-    public boolean upload(String channelName, String videoTitle){
+    public boolean upload(String channelName, String videoTitle) {
         channels.get(channelName).uploadVideo(videoTitle);
         return true;
     }
